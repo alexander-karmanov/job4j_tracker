@@ -27,14 +27,14 @@ public class Tracker {
 
     public Item[] findByName(String key) {
         Item[] rsl = new Item[size];
+        int count = 0;
         for (int index = 0; index < size; index++) {
-            if (items[index] != null && items[index].getName().equals(key)) {
-                rsl[index] = items[index];
-                size = size - 1;
+            if (items[index].getName().equals(key)) {
+                rsl[count] = items[index];
+                count++;
             }
         }
-        rsl = Arrays.copyOf(rsl, size);
-        return rsl;
+        return Arrays.copyOf(rsl, count);
     }
 
     public Item[] findAll() {
@@ -45,7 +45,6 @@ public class Tracker {
                 size++;
             }
         }
-        rsl = Arrays.copyOf(rsl, size);
-        return rsl;
+        return Arrays.copyOf(items, size);
     }
 }
