@@ -38,13 +38,6 @@ public class Tracker {
     }
 
     public Item[] findAll() {
-        Item[] rsl = new Item[size];
-        for (int index = 0; index < size; index++) {
-            if (items[index] != null) {
-                rsl[index] = items[index];
-                size++;
-            }
-        }
         return Arrays.copyOf(items, size);
     }
 
