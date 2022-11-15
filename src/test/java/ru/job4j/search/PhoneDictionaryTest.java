@@ -24,6 +24,6 @@ public class PhoneDictionaryTest {
                 new Person("John", "Smith", "7778899", "London")
         );
         ArrayList<Person> persons = phones.find("Bill");
-        assertThat(persons.get(0).getSurname()).isEqualTo("");
+        assertThat(persons.toArray().length == 0);
     }
 }

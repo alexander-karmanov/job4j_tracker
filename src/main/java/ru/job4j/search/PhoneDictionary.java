@@ -17,12 +17,8 @@ public class PhoneDictionary {
                     || value.getPhone().contains(key)
                     || value.getAddress().contains(key)) {
                 result.add(value);
-                System.out.println("Result: " + result.toString());
-            } else {
-                result.add(new Person("", "", "", ""));
-                System.out.println("Nothing found");
             }
         }
-            return result;
+        return result;
     }
 }
