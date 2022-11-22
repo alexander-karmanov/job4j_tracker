@@ -1,11 +1,11 @@
 package ru.job4j.tracker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Tracker {
-    private final ArrayList<Item> items = new ArrayList<>(100);
+    private final List<Item> items = new ArrayList<>(100);
     private int ids = 1;
-    private int size = 0;
 
     public Item add(Item item) {
         item.setId(ids++);
@@ -24,8 +24,8 @@ public class Tracker {
         return rsl;
     }
 
-    public ArrayList<Item> findByName(String key) {
-        ArrayList<Item> rsl = new ArrayList<>(size);
+    public List<Item> findByName(String key) {
+        ArrayList<Item> rsl = new ArrayList<>();
         int count = 0;
         for (Item it : items) {
             if (it.getName().equals(key)) {
@@ -35,22 +35,22 @@ public class Tracker {
         return rsl;
     }
 
-    public ArrayList<Item> findAll() {
-        return items;
+    public List<Item> findAll() {
+        return List.copyOf(items);
     }
 
     private int indexOf(int id) {
         int rsl = -1;
-        for (Item it : items) {
-            if (it.getId() == id) {
-                rsl = it.getId();
+        for (int index = 0; index < items.size(); index++) {
+            if (items.get(index).getId() == id) {
+                rsl = index;
             }
         }
         return rsl;
     }
 
     public boolean replace(int id, Item item) {
-        int index = indexOf(id) - 1;
+        int index = indexOf(id);
         boolean rsl = index != -1;
             if (rsl) {
                 item.setId(id);
@@ -64,7 +64,7 @@ public class Tracker {
         int index = indexOf(id);
         boolean rsl = index != -1;
         if (rsl) {
-            items.remove(id - 1);
+            items.remove(index);
         }
         return rsl;
     }
