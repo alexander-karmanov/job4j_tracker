@@ -16,15 +16,7 @@ public class BankService {
     }
 
     public boolean deleteUser(String passport) {
-        boolean result = false;
-        for (User user: users.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                users.remove(passport);
-                result = true;
-                break;
-            }
-        }
-        return result;
+        return users.remove(new User(passport, "")) != null;
     }
 
     public void addAccount(String passport, Account account) {
