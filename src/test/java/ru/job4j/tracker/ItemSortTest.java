@@ -3,8 +3,7 @@ package ru.job4j.tracker;
 import org.junit.Test;
 import java.util.*;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ItemSortTest {
     @Test
@@ -25,7 +24,7 @@ public class ItemSortTest {
                         new Item("Nick")
                 )
         );
-        assertArrayEquals(items.toArray(), expected.toArray());
+        assertTrue(items.equals(expected));
         }
 
     @Test
@@ -45,6 +44,6 @@ public class ItemSortTest {
                         new Item("Bob")
                 )
         );
-        assertArrayEquals(items.toArray(), expected.toArray());
+        assertTrue(items.equals(expected));
     }
 }
