@@ -16,18 +16,14 @@ public class ReconstructPhrase {
 
     private String getEvenElements() {
         StringBuilder stringBuilder = new StringBuilder();
-        int len = 0;
         int size = evenElements.size();
             for (int i = 0; i < size; i++) {
-                stringBuilder.append(evenElements.poll());
-            }
-            for (int i = 0; i < size; i++) {
                 if (i % 2 == 0) {
-                stringBuilder.append(stringBuilder.charAt(i));
-                len++;
+                    stringBuilder.append(evenElements.poll());
+                } else {
+                    evenElements.poll();
                 }
             }
-        stringBuilder.delete(0, stringBuilder.length() - len);
         return stringBuilder.toString();
     }
 
