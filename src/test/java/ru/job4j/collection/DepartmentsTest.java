@@ -2,8 +2,7 @@ package ru.job4j.collection;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -47,7 +46,7 @@ public class DepartmentsTest {
 
     @Test
     public void whenSortAscWithoutMissedDepartments() {
-        List<String> input = List.of(
+        List<String> input = Arrays.asList(
                 "K1/SK1",
                 "K1/SK1/SSK1",
                 "K1/SK1/SSK2",
@@ -69,17 +68,13 @@ public class DepartmentsTest {
                 "K2/SK1/SSK1",
                 "K2/SK1/SSK2"
         );
-        List<String> input1 = new ArrayList<>();
-        Collections.copy(input, input1);
-        List<String> expect1 = new ArrayList<>();
-        Collections.copy(expect, expect1);
-        Departments.sortAsc(input1);
-        assertThat(input1).containsSequence(expect1);
+        Departments.sortAsc(input);
+        assertThat(input).containsSequence(expect);
     }
 
     @Test
     public void whenSortAscWithMissedDepartments() {
-        List<String> input = List.of(
+        List<String> input = Arrays.asList(
                 "K1/SK1/SSK1",
                 "K1/SK1/SSK2",
                 "K2/SK1",
@@ -95,17 +90,13 @@ public class DepartmentsTest {
                 "K2/SK1/SSK1",
                 "K2/SK1/SSK2"
         );
-        List<String> input1 = new ArrayList<>();
-        Collections.copy(input, input1);
-        List<String> expect1 = new ArrayList<>();
-        Collections.copy(expect, expect1);
-        Departments.sortAsc(input1);
-        assertThat(input1).containsSequence(expect1);
+        Departments.sortAsc(input);
+        assertThat(input).containsSequence(expect);
     }
 
     @Test
     public void whenSortDescWithoutMissedDepartments() {
-        List<String> input = List.of(
+        List<String> input = Arrays.asList(
                 "K1/SK1",
                 "K1/SK1/SSK1",
                 "K1/SK1/SSK2",
@@ -127,17 +118,13 @@ public class DepartmentsTest {
                 "K1/SK1/SSK2",
                 "K1/SK2"
         );
-        List<String> input1 = new ArrayList<>();
-        Collections.copy(input, input1);
-        List<String> expect1 = new ArrayList<>();
-        Collections.copy(expect, expect1);
-        Departments.sortDesc(input1);
-        assertThat(input1).containsSequence(expect1);
+        Departments.sortDesc(input);
+        assertThat(input).containsSequence(expect);
     }
 
     @Test
     public void whenSortDescWithMissedDepartments() {
-        List<String> input = List.of(
+        List<String> input = Arrays.asList(
                 "K1/SK1",
                 "K1/SK1/SSK1",
                 "K1/SK1/SSK2",
@@ -155,11 +142,7 @@ public class DepartmentsTest {
                 "K1/SK1/SSK2",
                 "K1/SK2"
         );
-        List<String> input1 = new ArrayList<>();
-        Collections.copy(input, input1);
-        List<String> expect1 = new ArrayList<>();
-        Collections.copy(expect, expect1);
-        Departments.sortDesc(input1);
-        assertThat(input1).containsSequence(expect1);
+        Departments.sortDesc(input);
+        assertThat(input).containsSequence(expect);
     }
 }
