@@ -8,7 +8,7 @@ public class AnalyzeByMap {
         double allScore = 0;
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                allScore += subject.score();
+                allScore += subject.getScore();
                 quantity++;
             }
         }
@@ -21,7 +21,7 @@ public class AnalyzeByMap {
             int scoreSum = 0;
             int subjNumb = 0;
             for (Subject subj : pupil.subjects()) {
-                scoreSum += subj.score();
+                scoreSum += subj.getScore();
                 subjNumb++;
             }
             int rsl = scoreSum / subjNumb;
@@ -35,8 +35,8 @@ public class AnalyzeByMap {
         Map<String, Integer> tempMap = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                int score = tempMap.getOrDefault(subject.name(), 0);
-                tempMap.put(subject.name(), score + subject.score());
+                int score = tempMap.getOrDefault(subject.getName(), 0);
+                tempMap.put(subject.getName(), score + subject.getScore());
             }
         }
         for (Map.Entry<String, Integer> entry : tempMap.entrySet()) {
@@ -51,7 +51,7 @@ public class AnalyzeByMap {
         for (Pupil pupil : pupils) {
             int scoreSum = 0;
             for (Subject subj : pupil.subjects()) {
-                scoreSum += subj.score();
+                scoreSum += subj.getScore();
             }
             allStudents.add(new Label(pupil.name(), scoreSum));
         }
@@ -64,8 +64,8 @@ public class AnalyzeByMap {
         Map<String, Integer> tempMap = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                int score = tempMap.getOrDefault(subject.name(), 0);
-                tempMap.put(subject.name(), score + subject.score());
+                int score = tempMap.getOrDefault(subject.getName(), 0);
+                tempMap.put(subject.getName(), score + subject.getScore());
             }
         }
         for (Map.Entry<String, Integer> entry : tempMap.entrySet()) {
