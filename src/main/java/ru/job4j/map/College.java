@@ -22,8 +22,6 @@ public class College {
         return rsl;
     }
 
-//
-
     public Optional<Subject> findBySubjectName(String account, String name) {
         Optional<Subject> rsl = Optional.empty();
         Optional<Student> s = findByAccount(account);
@@ -32,7 +30,6 @@ public class College {
                 for (Subject subj : subjects) {
                     if (name.equals(subj.getName())) {
                         rsl = Optional.of(subj);
-                        //rsl.get();
                         break;
                     }
                 }
