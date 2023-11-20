@@ -3,6 +3,7 @@ package ru.job4j.tracker;
 import ru.job4j.tracker.Item;
 import java.io.InputStream;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -44,26 +45,36 @@ public class SqlTracker implements Store {
     @Override
     public Item add(Item item) {
         try {
-            PreparedStatement statement = cn.prepareStatement("INSERT INTO items(name, created) VALUES (?, ?)");
+            PreparedStatement statement = cn.prepareStatement("INSERT INTO items(name, created) VALUES (?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, item.getName());
             statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
             statement.execute();
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    item.setId(generatedKeys.getInt(1));
+                }
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return item;
     }
 
     @Override
     public boolean replace(int id, Item item) {
+        boolean rsl = false;
         try {
             PreparedStatement statement = cn.prepareStatement("UPDATE items SET name = ? WHERE id = " + id);
             statement.setString(1, item.getName());
             statement.execute();
+            if (statement.getUpdateCount() > 0) {
+                rsl = true;
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return true;
+        return rsl;
     }
 
     @Override
@@ -84,7 +95,10 @@ public class SqlTracker implements Store {
             PreparedStatement statement = cn.prepareStatement("SELECT * FROM items;");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                allItems.add(new Item(resultSet.getString("name")));
+                allItems.add(new Item(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name")
+                ));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -100,7 +114,10 @@ public class SqlTracker implements Store {
             statement.setString(1, key);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                itemsByName.add(new Item(resultSet.getString(key)));
+                itemsByName.add(new Item(
+                        resultSet.getInt(1),
+                        resultSet.getString(key)
+                ));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -115,7 +132,10 @@ public class SqlTracker implements Store {
             PreparedStatement statement = cn.prepareStatement("SELECT * FROM items WHERE id = " + id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                it = new Item(resultSet.getString(id));
+                it = new Item(
+                        resultSet.getInt(1),
+                        resultSet.getString(id)
+                );
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
