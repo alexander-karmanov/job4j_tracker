@@ -65,8 +65,9 @@ public class SqlTracker implements Store {
     public boolean replace(int id, Item item) {
         boolean rsl = false;
         try {
-            PreparedStatement statement = cn.prepareStatement("UPDATE items SET name = ? WHERE id = " + id);
+            PreparedStatement statement = cn.prepareStatement("UPDATE items SET name = ? WHERE id = ?;");
             statement.setString(1, item.getName());
+            statement.setInt(2, id);
             statement.execute();
             if (statement.getUpdateCount() > 0) {
                 rsl = true;
@@ -97,7 +98,8 @@ public class SqlTracker implements Store {
             while (resultSet.next()) {
                 allItems.add(new Item(
                         resultSet.getInt("id"),
-                        resultSet.getString("name")
+                        resultSet.getString("name"),
+                        resultSet.getTimestamp("created").toLocalDateTime()
                 ));
             }
         } catch (SQLException e) {
@@ -116,7 +118,8 @@ public class SqlTracker implements Store {
             while (resultSet.next()) {
                 itemsByName.add(new Item(
                         resultSet.getInt(1),
-                        resultSet.getString(key)
+                        resultSet.getString(key),
+                        resultSet.getTimestamp("created").toLocalDateTime()
                 ));
             }
         } catch (SQLException e) {
@@ -129,12 +132,14 @@ public class SqlTracker implements Store {
     public Item findById(int id) {
         Item it = new Item();
         try {
-            PreparedStatement statement = cn.prepareStatement("SELECT * FROM items WHERE id = " + id);
+            PreparedStatement statement = cn.prepareStatement("SELECT * FROM items WHERE id = ?");
+            statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 it = new Item(
                         resultSet.getInt(1),
-                        resultSet.getString(id)
+                        resultSet.getString(id),
+                        resultSet.getTimestamp("created").toLocalDateTime()
                 );
             }
         } catch (SQLException e) {
