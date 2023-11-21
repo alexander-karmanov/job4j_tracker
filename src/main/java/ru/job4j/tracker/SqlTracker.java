@@ -130,7 +130,7 @@ public class SqlTracker implements Store {
 
     @Override
     public Item findById(int id) {
-        Item it = new Item();
+        Item it = null;
         try {
             PreparedStatement statement = cn.prepareStatement("SELECT * FROM items WHERE id = ?");
             statement.setInt(1, id);
