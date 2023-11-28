@@ -118,7 +118,7 @@ public class SqlTracker implements Store {
             while (resultSet.next()) {
                 itemsByName.add(new Item(
                         resultSet.getInt(1),
-                        resultSet.getString(key),
+                        resultSet.getString("name"),
                         resultSet.getTimestamp("created").toLocalDateTime()
                 ));
             }
@@ -138,7 +138,7 @@ public class SqlTracker implements Store {
             while (resultSet.next()) {
                 it = new Item(
                         resultSet.getInt(1),
-                        resultSet.getString(id),
+                        resultSet.getString("name"),
                         resultSet.getTimestamp("created").toLocalDateTime()
                 );
             }
