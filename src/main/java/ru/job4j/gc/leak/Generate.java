@@ -11,8 +11,13 @@ public interface Generate {
 
     default List<String> read(String path) throws IOException {
         List<String> text = new ArrayList<>();
-        Files.lines(Paths.get(path))
-                .forEach(text::add);
+        try {
+            Files.lines(Paths.get(path))
+                    .forEach(text::add);
+        } catch (IOException e) {
+            throw new IOException(e);
+        }
+
         return text;
     }
 }
