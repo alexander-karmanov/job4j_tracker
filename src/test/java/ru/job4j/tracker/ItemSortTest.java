@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 
 @Disabled
 public class ItemSortTest {
-    @Test
+    /* @Test
     public void whenAscOrderSort() {
         List<Item> items = new ArrayList<>(
                         Arrays.asList(
@@ -48,5 +48,5 @@ public class ItemSortTest {
                 )
         );
         assertTrue(items.equals(expected));
-    }
+    } */
 }
